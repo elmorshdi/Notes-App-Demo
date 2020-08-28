@@ -2,17 +2,18 @@ package com.my.notes.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.my.notes.NoteAdapter;
 import com.my.notes.R;
+import com.my.notes.databinding.ActivityMainBinding;
 import com.my.notes.pojo.Note;
 
 import java.util.List;
@@ -26,19 +27,16 @@ import io.reactivex.schedulers.Schedulers;
 public class MainActivity extends AppCompatActivity {
     List<Note> notes;
     NoteViewModel noteViewModel;
-    RecyclerView recyclerView;
     NoteAdapter adapter;
-    ConstraintLayout constraintLayout;
     Note note;
-    FloatingActionButton buttonAddNote;
-
+    private ActivityMainBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         adapter = new NoteAdapter();
-        recyclerView = findViewById(R.id.recycler_view);
-        constraintLayout = findViewById(R.id.layout);
+
         noteViewModel = new NoteViewModel(MainActivity.this);
 
         noteViewModel.getAllNotes()
@@ -52,8 +50,15 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(List<Note> notes) {
-                        adapter.setNotes(notes);
-                        adapter.notifyDataSetChanged();
+                        if (notes == null || notes.size() == 0) {
+                            binding.emptyText.setVisibility(View.VISIBLE);
+
+                        } else {
+                            binding.emptyText.setVisibility(View.INVISIBLE);
+
+                            adapter.setNotes(notes);
+                            adapter.notifyDataSetChanged();
+                        }
                     }
 
 
@@ -70,12 +75,11 @@ public class MainActivity extends AppCompatActivity {
 
                 });
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(adapter);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        binding.recyclerView.setHasFixedSize(true);
+        binding.recyclerView.setAdapter(adapter);
 
-        buttonAddNote = findViewById(R.id.button_add_note);
-        buttonAddNote.setOnClickListener(v -> {
+        binding.buttonAddNote.setOnClickListener(v -> {
             Intent intent = new Intent(this, AddNoteActivity.class);
             intent.putExtra("Type", "Add");
             startActivity(intent);
@@ -93,10 +97,10 @@ public class MainActivity extends AppCompatActivity {
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 note = adapter.getNoteAt(viewHolder.getAdapterPosition());
                 noteViewModel.delete(note);
-                Snackbar.make(constraintLayout, "Note Deleted", Snackbar.LENGTH_LONG)
+                Snackbar.make(binding.layout, "Note Deleted", Snackbar.LENGTH_LONG)
                         .setAction("Undo", view -> noteViewModel.insert(note)).show();
             }
-        }).attachToRecyclerView(recyclerView);
+        }).attachToRecyclerView(binding.recyclerView);
         adapter.setOnItemClickListener(note -> {
             Intent intent = new Intent(MainActivity.this, AddNoteActivity.class);
             intent.putExtra("noteToUpdateId", note.getId());

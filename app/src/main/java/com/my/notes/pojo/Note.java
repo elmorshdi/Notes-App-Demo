@@ -18,6 +18,7 @@ class Note {
         this.priority = priority;
     }
 
+
     public int getId() {
         return id;
     }

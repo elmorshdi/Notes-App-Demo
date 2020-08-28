@@ -24,6 +24,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+        dataBinding {
+            enabled =true
+    }
 }
 
 dependencies {
@@ -59,5 +63,7 @@ dependencies {
     def rxJavaVersion = '2.1.1'
     implementation "io.reactivex.rxjava2:rxandroid:$rxJavaVersion"
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+
+    implementation 'petrov.kristiyan:colorpicker-library:1.1.10'
 
 }
