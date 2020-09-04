@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -10,6 +11,7 @@
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/background"
         tools:context=".ui.MainActivity">
 
 
@@ -18,43 +20,85 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Empty"
-            android:textSize="50sp"
+            android:text="@string/empty"
+            android:textColor="@color/search_text"
             android:textStyle="bold"
+            android:textSize="@dimen/_36ssp"
             android:visibility="invisible" />
 
-        <RelativeLayout
-            android:id="@+id/relative"
+        <TextView
+            android:id="@+id/titleTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark">
+            android:layout_margin="@dimen/_16sdp"
+            android:text="@string/my_notes"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_20ssp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_margin="16dp"
-                android:text="Notes"
+        <LinearLayout
+            android:id="@+id/search_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titleTxt"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:background="@drawable/search_background"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_10sdp">
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_search"
+                app:tint="@color/search_text" />
+
+            <EditText
+                android:id="@+id/search_edit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:background="@null"
+                android:focusableInTouchMode="true"
                 android:textColor="@android:color/white"
-                android:textSize="26sp" />
-        </RelativeLayout>
+                android:hint="@string/search_your_notes"
+                android:imeOptions="actionDone"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:textColorHint="@color/search_text"
+                android:textSize="@dimen/_13ssp" />
+
+
+        </LinearLayout>
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/relative"
+            android:layout_below="@id/search_layout"
+            android:layout_marginBottom="@dimen/_50sdp"
+            android:visibility="gone"
             tools:listitem="@layout/note_item" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+        <ImageView
             android:id="@+id/button_add_note"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom|end"
             android:layout_margin="35dp"
-            android:src="@drawable/ic_add" />
+            android:background="@drawable/add_button"
+            android:contentDescription="@string/app_name"
+            android:padding="@dimen/_5sdp"
+            android:src="@drawable/ic_add"
+            android:translationZ="@dimen/_5sdp"
+            app:tint="@color/background" />
+
+
     </RelativeLayout>
 </layout>

@@ -4,8 +4,8 @@ import android.content.Context;
 
 import androidx.lifecycle.ViewModel;
 
+import com.my.notes.data.NoteRepository;
 import com.my.notes.pojo.Note;
-import com.my.notes.pojo.NoteRepository;
 
 import java.util.ArrayList;
 import java.util.List;

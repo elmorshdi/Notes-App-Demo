@@ -1,9 +1,10 @@
-package com.my.notes.pojo;
+package com.my.notes.data;
 
 import android.content.Context;
 import android.util.Log;
 
-import java.util.ArrayList;
+import com.my.notes.pojo.Note;
+
 import java.util.List;
 
 import io.reactivex.CompletableObserver;
@@ -14,13 +15,11 @@ import io.reactivex.schedulers.Schedulers;
 public class NoteRepository {
 
     NoteDatabase database;
-    String tag = "repo";
+    String tag = "repotag";
     private List<Note> allNotes;
 
     public NoteRepository(Context context) {
         database = NoteDatabase.getInstance(context);
-        NoteDao noteDao = database.noteDao();
-        allNotes = new ArrayList<>();
     }
 
     public void insert(final Note note) {

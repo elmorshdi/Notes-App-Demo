@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">My Notes</string>
+    <string name="my_notes">My Notes</string>
+    <string name="empty">Empty</string>
+    <string name="search_your_notes">Search your Notes…</string>
+    <string name="color">color</string>
+    <string name="pick_color">Pick color</string>
+    <string name="priority">Priority:</string>
+    <string name="type_your_note">Type your Note..</string>
+    <string name="title_of_note">Title Of Note</string>
 </resources>
